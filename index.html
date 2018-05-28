@@ -1,1 +1,53 @@
-working
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html> <head>
+<title>Property Tracker</title>
+<script type="text/javascript" src="web3.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+<script type="text/javascript">
+var update_manager; //this is for debuging from the console, and should be removed later
+var web3;
+var atlas = null;
+
+
+window.addEventListener('load', function() {
+  console.log("step one")
+
+  var Web3 = require('web3');
+  if (typeof web3 !== 'undefined') {   // Checking if Web3 has been injected by the browser (Mist/MetaMask)
+    web3 = new Web3(web3.currentProvider);
+    console.log("Looks like we are probably using MetaMask")
+  } else {
+    web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+    console.log('Using localhost RPC node... install Metamask and load page via HTTP to use metamask')
+  }
+
+  console.log("document ready started")
+
+    var update_manager_abi = [{"constant":false,"inputs":[{"name":"_owner","type":"address"}],"name":"removeOwner","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"owner","outputs":[{"name":"","type":"bool"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_owner","type":"address"}],"name":"addOwner","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_cv","type":"address"}],"name":"setCurrentVersion","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"current_version","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"inputs":[],"payable":false,"type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"name":"new_version","type":"address"},{"indexed":true,"name":"done_by_address","type":"address"}],"name":"updatedCurrentVersion","type":"event"}];
+    var atlas_abi =  [{"constant":false,"inputs":[{"name":"_target_officer","type":"address"},{"name":"_action_id","type":"uint8"}],"name":"isPendingFormalSigned","outputs":[{"name":"","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"","type":"bytes32"}],"name":"pending_action_map","outputs":[{"name":"parcel_hash","type":"bytes32"},{"name":"action_id","type":"uint8"},{"name":"owner_hash","type":"bytes32"},{"name":"notary_signature","type":"address"},{"name":"federal_signature","type":"address"},{"name":"judicial_signature","type":"address"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_parcel_hash","type":"bytes32"},{"name":"_new_owner_hash","type":"bytes32"},{"name":"_action_id","type":"uint8"},{"name":"_owner_key","type":"string"}],"name":"signPending","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_target_officer","type":"address"},{"name":"_action_id","type":"uint8"}],"name":"signPending","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"","type":"bytes32"}],"name":"parcel_map","outputs":[{"name":"ul_lat","type":"uint8"},{"name":"ul_lng","type":"uint8"},{"name":"lr_lat","type":"uint8"},{"name":"lr_lng","type":"uint8"},{"name":"owner_name","type":"string"},{"name":"street_address","type":"string"},{"name":"owner","type":"bytes32"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_parcel_hash","type":"bytes32"},{"name":"_new_owner","type":"bytes32"},{"name":"_action_id","type":"uint8"}],"name":"isPendingOwnerSigned","outputs":[{"name":"","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"parcel_hash_list","outputs":[{"name":"","type":"bytes32"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_ul_lat","type":"uint8"},{"name":"_ul_lng","type":"uint8"},{"name":"_lr_lat","type":"uint8"},{"name":"_lr_lng","type":"uint8"},{"name":"_new_owner","type":"bytes32"},{"name":"_street_address","type":"string"}],"name":"createParcel","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_lat","type":"uint8"},{"name":"_lng","type":"uint8"}],"name":"getParcelContainingLatLng","outputs":[{"name":"region","type":"bytes32"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_parcel_hash","type":"bytes32"},{"name":"_new_owner","type":"bytes32"},{"name":"_new_owner_name","type":"string"},{"name":"_owner_key","type":"string"}],"name":"transferParcel","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_new_officer","type":"address"},{"name":"_officer_type","type":"uint8"}],"name":"createOfficer","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_new_officer","type":"address"}],"name":"removeOfficer","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_parcel_hash","type":"bytes32"}],"name":"dissolveParcel","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_parcel_hash","type":"bytes32"},{"name":"_new_owner","type":"bytes32"},{"name":"_action_id","type":"uint8"}],"name":"pendingExecuted","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_key","type":"string"}],"name":"key2Hash","outputs":[{"name":"","type":"bytes32"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_parcel_hash","type":"bytes32"},{"name":"_new_owner","type":"bytes32"},{"name":"_action_id","type":"uint8"}],"name":"getPendingActionHash","outputs":[{"name":"","type":"bytes32"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"officer","outputs":[{"name":"","type":"uint8"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_owner","type":"bytes32"}],"name":"getParcelByOwner","outputs":[{"name":"","type":"bytes32"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_parcel_hash","type":"bytes32"},{"name":"_new_owner","type":"bytes32"},{"name":"_action_id","type":"uint8"}],"name":"isPendingFormalSigned","outputs":[{"name":"","type":"bool"}],"payable":false,"type":"function"},{"inputs":[{"name":"_judicial","type":"address"},{"name":"_notary","type":"address"}],"payable":false,"type":"constructor"},{"anonymous":false,"inputs":[{"indexed":false,"name":"code","type":"uint8"}],"name":"debug_log","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"pa_hash","type":"bytes32"}],"name":"pendingAdded","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_parcel_hash","type":"bytes32"},{"indexed":false,"name":"_new_owner","type":"bytes32"},{"indexed":true,"name":"_action_id","type":"uint8"},{"indexed":false,"name":"owner","type":"bytes32"},{"indexed":false,"name":"judicial","type":"address"},{"indexed":false,"name":"federal","type":"address"},{"indexed":true,"name":"notary","type":"address"}],"name":"actionExecuted","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"parcel_hash","type":"bytes32"},{"indexed":false,"name":"judicial","type":"address"},{"indexed":false,"name":"federal","type":"address"},{"indexed":false,"name":"notary","type":"address"},{"indexed":false,"name":"owner","type":"bytes32"}],"name":"createParcelExecuted","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_parcel_hash","type":"bytes32"},{"indexed":false,"name":"_ul_lat","type":"uint8"},{"indexed":false,"name":"_ul_lng","type":"uint8"},{"indexed":false,"name":"_lr_lat","type":"uint8"},{"indexed":false,"name":"_lr_lng","type":"uint8"},{"indexed":false,"name":"street_address","type":"string"}],"name":"dissolvedParcel","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_parcel_hash","type":"bytes32"},{"indexed":true,"name":"_owner_name","type":"string"}],"name":"transferedParcel","type":"event"}]
+
+function getCurrentContractAddressAsync(){
+  var ROPSTEN = 3; //ropsten testnetwork version
+  var LIVE = 1; // live netowork version... not sure this is actually correct
+  return Promise.promisify(web3.version.getNetwork)().then(result => {
+    if($("#contractAddress").val() !== "0xNOT_VALID"){
+      return($("#contractAddress").val()); //if they have manually entered a
+      //contract address then we will use that!
+    }
+
+    if(result == ROPSTEN){
+      update_manager_addr = "0xee80b2e89f7cc42e3b433107e989f71858070732"; //note different abi
+    }
+    update_manager = Promise.promisifyAll(web3.eth.contract(update_manager_abi).at(update_manager_addr));
+    return update_manager.current_versionAsync();
+  })
+};
+</script>
+<body>
+
+<h1>Hello World... </h1>    
+    
+</body>
+
+</html>
