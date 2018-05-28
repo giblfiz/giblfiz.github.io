@@ -7,7 +7,7 @@
 <script type="text/javascript">
 var update_manager; //this is for debuging from the console, and should be removed later
 var web3;
-var atlas = null;
+var WorldCupToken; 
 
 
 window.addEventListener('load', function() {
@@ -22,6 +22,8 @@ window.addEventListener('load', function() {
   } else {
     console.log('No web3? You should consider trying MetaMask!')
   }
+
+    WorldCupToken = web3.eth.contract(WorldCupToken_abi).at(WorldCupToken_address)
 
   console.log("document ready started")
 });
@@ -592,7 +594,8 @@ window.addEventListener('load', function() {
 </script>
 <body>
 
-<h1>Hello World... </h1>    
+<h1>You should be using Metamask on Ropstein test network for this demo</h1>    
+<a HREF="https://ropsten.etherscan.io/address/0x827264d72f14d94bca70fc6d204c954e21ec8cad">This is the relivant contract</a>
     
 </body>
 
