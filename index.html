@@ -25,9 +25,566 @@ window.addEventListener('load', function() {
 
   console.log("document ready started")
 
-    var update_manager_abi = [{"constant":false,"inputs":[{"name":"_owner","type":"address"}],"name":"removeOwner","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"owner","outputs":[{"name":"","type":"bool"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_owner","type":"address"}],"name":"addOwner","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_cv","type":"address"}],"name":"setCurrentVersion","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"current_version","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"inputs":[],"payable":false,"type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"name":"new_version","type":"address"},{"indexed":true,"name":"done_by_address","type":"address"}],"name":"updatedCurrentVersion","type":"event"}];
-    var atlas_abi =  [{"constant":false,"inputs":[{"name":"_target_officer","type":"address"},{"name":"_action_id","type":"uint8"}],"name":"isPendingFormalSigned","outputs":[{"name":"","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"","type":"bytes32"}],"name":"pending_action_map","outputs":[{"name":"parcel_hash","type":"bytes32"},{"name":"action_id","type":"uint8"},{"name":"owner_hash","type":"bytes32"},{"name":"notary_signature","type":"address"},{"name":"federal_signature","type":"address"},{"name":"judicial_signature","type":"address"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_parcel_hash","type":"bytes32"},{"name":"_new_owner_hash","type":"bytes32"},{"name":"_action_id","type":"uint8"},{"name":"_owner_key","type":"string"}],"name":"signPending","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_target_officer","type":"address"},{"name":"_action_id","type":"uint8"}],"name":"signPending","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"","type":"bytes32"}],"name":"parcel_map","outputs":[{"name":"ul_lat","type":"uint8"},{"name":"ul_lng","type":"uint8"},{"name":"lr_lat","type":"uint8"},{"name":"lr_lng","type":"uint8"},{"name":"owner_name","type":"string"},{"name":"street_address","type":"string"},{"name":"owner","type":"bytes32"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_parcel_hash","type":"bytes32"},{"name":"_new_owner","type":"bytes32"},{"name":"_action_id","type":"uint8"}],"name":"isPendingOwnerSigned","outputs":[{"name":"","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"parcel_hash_list","outputs":[{"name":"","type":"bytes32"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_ul_lat","type":"uint8"},{"name":"_ul_lng","type":"uint8"},{"name":"_lr_lat","type":"uint8"},{"name":"_lr_lng","type":"uint8"},{"name":"_new_owner","type":"bytes32"},{"name":"_street_address","type":"string"}],"name":"createParcel","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_lat","type":"uint8"},{"name":"_lng","type":"uint8"}],"name":"getParcelContainingLatLng","outputs":[{"name":"region","type":"bytes32"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_parcel_hash","type":"bytes32"},{"name":"_new_owner","type":"bytes32"},{"name":"_new_owner_name","type":"string"},{"name":"_owner_key","type":"string"}],"name":"transferParcel","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_new_officer","type":"address"},{"name":"_officer_type","type":"uint8"}],"name":"createOfficer","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_new_officer","type":"address"}],"name":"removeOfficer","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_parcel_hash","type":"bytes32"}],"name":"dissolveParcel","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_parcel_hash","type":"bytes32"},{"name":"_new_owner","type":"bytes32"},{"name":"_action_id","type":"uint8"}],"name":"pendingExecuted","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_key","type":"string"}],"name":"key2Hash","outputs":[{"name":"","type":"bytes32"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_parcel_hash","type":"bytes32"},{"name":"_new_owner","type":"bytes32"},{"name":"_action_id","type":"uint8"}],"name":"getPendingActionHash","outputs":[{"name":"","type":"bytes32"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"officer","outputs":[{"name":"","type":"uint8"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_owner","type":"bytes32"}],"name":"getParcelByOwner","outputs":[{"name":"","type":"bytes32"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_parcel_hash","type":"bytes32"},{"name":"_new_owner","type":"bytes32"},{"name":"_action_id","type":"uint8"}],"name":"isPendingFormalSigned","outputs":[{"name":"","type":"bool"}],"payable":false,"type":"function"},{"inputs":[{"name":"_judicial","type":"address"},{"name":"_notary","type":"address"}],"payable":false,"type":"constructor"},{"anonymous":false,"inputs":[{"indexed":false,"name":"code","type":"uint8"}],"name":"debug_log","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"pa_hash","type":"bytes32"}],"name":"pendingAdded","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_parcel_hash","type":"bytes32"},{"indexed":false,"name":"_new_owner","type":"bytes32"},{"indexed":true,"name":"_action_id","type":"uint8"},{"indexed":false,"name":"owner","type":"bytes32"},{"indexed":false,"name":"judicial","type":"address"},{"indexed":false,"name":"federal","type":"address"},{"indexed":true,"name":"notary","type":"address"}],"name":"actionExecuted","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"parcel_hash","type":"bytes32"},{"indexed":false,"name":"judicial","type":"address"},{"indexed":false,"name":"federal","type":"address"},{"indexed":false,"name":"notary","type":"address"},{"indexed":false,"name":"owner","type":"bytes32"}],"name":"createParcelExecuted","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_parcel_hash","type":"bytes32"},{"indexed":false,"name":"_ul_lat","type":"uint8"},{"indexed":false,"name":"_ul_lng","type":"uint8"},{"indexed":false,"name":"_lr_lat","type":"uint8"},{"indexed":false,"name":"_lr_lng","type":"uint8"},{"indexed":false,"name":"street_address","type":"string"}],"name":"dissolvedParcel","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_parcel_hash","type":"bytes32"},{"indexed":true,"name":"_owner_name","type":"string"}],"name":"transferedParcel","type":"event"}]
-
+    var WorldCupToken_abi = [
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"name": "owner",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"name": "approved",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"name": "tokenId",
+				"type": "uint256"
+			}
+		],
+		"name": "Approval",
+		"type": "event"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_to",
+				"type": "address"
+			},
+			{
+				"name": "_tokenId",
+				"type": "uint256"
+			}
+		],
+		"name": "approve",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_tokenId",
+				"type": "uint256"
+			}
+		],
+		"name": "buyWorldCupTeamToken",
+		"outputs": [],
+		"payable": true,
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [],
+		"name": "destroy",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [],
+		"name": "payAllOut",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_newCEO",
+				"type": "address"
+			}
+		],
+		"name": "setCEO",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_newCOO",
+				"type": "address"
+			}
+		],
+		"name": "setCOO",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_tokenId",
+				"type": "uint256"
+			},
+			{
+				"name": "descOfOwner",
+				"type": "string"
+			}
+		],
+		"name": "setWorldCupTeamDesc",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"name": "from",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"name": "to",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"name": "tokenId",
+				"type": "uint256"
+			}
+		],
+		"name": "Transfer",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"name": "curOwner",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"name": "tokenId",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"name": "oldPrice",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"name": "newPrice",
+				"type": "uint256"
+			},
+			{
+				"indexed": true,
+				"name": "prevOwner",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"name": "traddingTime",
+				"type": "uint256"
+			}
+		],
+		"name": "WorldCupTokenWereSold",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"name": "fromAddress",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"name": "toAddress",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"name": "amount",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"name": "presentTime",
+				"type": "uint256"
+			}
+		],
+		"name": "Present",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"name": "toOwner",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"name": "tokenId",
+				"type": "uint256"
+			},
+			{
+				"indexed": true,
+				"name": "traddingTime",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"name": "remainingAmount",
+				"type": "uint256"
+			}
+		],
+		"name": "ShareBonus",
+		"type": "event"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_tokenId",
+				"type": "uint256"
+			}
+		],
+		"name": "takeOwnership",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_to",
+				"type": "address"
+			},
+			{
+				"name": "_tokenId",
+				"type": "uint256"
+			}
+		],
+		"name": "transfer",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_from",
+				"type": "address"
+			},
+			{
+				"name": "_to",
+				"type": "address"
+			},
+			{
+				"name": "_tokenId",
+				"type": "uint256"
+			}
+		],
+		"name": "transferFrom",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "_owner",
+				"type": "address"
+			}
+		],
+		"name": "balanceOf",
+		"outputs": [
+			{
+				"name": "balance",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "ceoAddress",
+		"outputs": [
+			{
+				"name": "",
+				"type": "address"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "cooAddress",
+		"outputs": [
+			{
+				"name": "",
+				"type": "address"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "getBonusPool",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "getCEO",
+		"outputs": [
+			{
+				"name": "ceoAddr",
+				"type": "address"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "getTimeFromPrize",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "_tokenId",
+				"type": "uint256"
+			}
+		],
+		"name": "getWorlCupByID",
+		"outputs": [
+			{
+				"name": "wctDesc",
+				"type": "string"
+			},
+			{
+				"name": "sellingPrice",
+				"type": "uint256"
+			},
+			{
+				"name": "owner",
+				"type": "address"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "implementsERC721",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "pure",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "name",
+		"outputs": [
+			{
+				"name": "",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "pure",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "_tokenId",
+				"type": "uint256"
+			}
+		],
+		"name": "ownerOf",
+		"outputs": [
+			{
+				"name": "owner",
+				"type": "address"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "_tokenId",
+				"type": "uint256"
+			}
+		],
+		"name": "priceOf",
+		"outputs": [
+			{
+				"name": "price",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "symbol",
+		"outputs": [
+			{
+				"name": "",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "pure",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "_owner",
+				"type": "address"
+			}
+		],
+		"name": "tokensOfOwner",
+		"outputs": [
+			{
+				"name": "ownerTokens",
+				"type": "uint256[]"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "totalSupply",
+		"outputs": [
+			{
+				"name": "total",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "worldCupIdToAddressForApproved",
+		"outputs": [
+			{
+				"name": "",
+				"type": "address"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "worldCupIdToOwnerAddress",
+		"outputs": [
+			{
+				"name": "",
+				"type": "address"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	}
+]
 });
 </script>
 <body>
