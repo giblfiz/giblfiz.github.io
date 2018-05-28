@@ -12,15 +12,26 @@ var atlas = null;
 
 window.addEventListener('load', function() {
   console.log("step one")
+  
+  // Checking if Web3 has been injected by the browser (Mist/MetaMask)
+  if (typeof web3 !== 'undefined') {
 
-  var Web3 = require('web3');
-  if (typeof web3 !== 'undefined') {   // Checking if Web3 has been injected by the browser (Mist/MetaMask)
-    web3 = new Web3(web3.currentProvider);
-    console.log("Looks like we are probably using MetaMask")
+    // Use the browser's ethereum provider
+    var provider = web3.currentProvider
+
   } else {
-    web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
-    console.log('Using localhost RPC node... install Metamask and load page via HTTP to use metamask')
+    console.log('No web3? You should consider trying MetaMask!')
   }
+
+  
+  //var Web3 = require('web3');
+  //if (typeof web3 !== 'undefined') {   // Checking if Web3 has been injected by the browser (Mist/MetaMask)
+  //  web3 = new Web3(web3.currentProvider);
+  //  console.log("Looks like we are probably using MetaMask")
+  //} else {
+  //  web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+  //  console.log('Using localhost RPC node... install Metamask and load page via HTTP to use metamask')
+  //}
 
   console.log("document ready started")
 
