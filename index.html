@@ -32,8 +32,8 @@ window.addEventListener('load', function() {
 	!function outer(x){
     		WorldCupToken.getWorlCupByID(x,(er,ms)=>{
                 var n = x;
-                console.log(ms,n)
-                display(n,ms[0],0,0,0});
+                console.log(ms,n);
+                $("body").append("<h3>"n+" : "+JSON.stringify(ms) +"</h3>");
     	}(x)
     }
 
