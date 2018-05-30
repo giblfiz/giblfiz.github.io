@@ -28,14 +28,14 @@ window.addEventListener('load', function() {
   console.log("document ready started")
 
 //This echos all the wctokens to the console. let's do better than that   
-    for(x=1;x < 32; x++){
-      !function outer(x){
-                //WorldCupToken.getWorlCupByID(x, (er,ms)=>{
-                //        var n = x;
-                //        console.log(ms,n);
-                //        } )
-              }
-    }
+for(x=1;x < 32; x++){
+      (function (x){			
+			WorldCupToken.getWorlCupByID(x, function(er,val){console.log(val[0], x )});
+      }(x))
+}
+    
+    
+    
 });
   
   
