@@ -28,14 +28,13 @@ window.addEventListener('load', function() {
   console.log("document ready started")
 
 //This echos all the wctokens to the console. let's do better than that   
-  for(x=1;x < 32; x++){
-	!function outer(x){
-    		WorldCupToken.getWorlCupByID(x,(er,ms)=>{
-                var n = x;
-                console.log(ms,n);
-                $("body").append("<h3>"n+" : "+JSON.stringify(ms) +"</h3>");
-    	}(x)
-    }
+    for(x=1;x < 32; x++){
+      !function outer(x){
+              WorldCupToken.getWorlCupByID(x,(er,ms)=>{
+                  var n = x;
+                  console.log(ms,n);
+          }(x)
+      }
 
 
 });
@@ -602,11 +601,6 @@ window.addEventListener('load', function() {
 		"type": "function"
 	}
 ]
-
-function display(id, name, price, owner) {
-    $("body").append("
-                     <div id='itm_"+id+"'> "+name+"</div>");
-}
 
 </script>
 <body>
