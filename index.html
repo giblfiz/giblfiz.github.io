@@ -30,7 +30,7 @@ window.addEventListener('load', function() {
 //This echos all the wctokens to the console. let's do better than that   
 for(x=1;x < 32; x++){
       (function (x){			
-			WorldCupToken.getWorlCupByID(x, function(er,val){console.log(val[0], x )});
+			WorldCupToken.getWorlCupByID(x, function(er,val){printDiv(x,val)});
       }(x))
 }
     
@@ -38,6 +38,17 @@ for(x=1;x < 32; x++){
     
 });
   
+  
+  function printDiv(cardId, cardInfo) {
+    $("body").append("<div></div>");
+    $("div").last()
+    .css( "background-color", "red" )
+    .css( "border", "5px solid black" )
+    .innerHTML(cardInfo[0])
+    .append("<div> $"+ cardInfo[1][e] +"</div>")
+    .append("<div> #"+ cardId +"</div>")
+    
+  }
   
     var WorldCupToken_address = "0x827264d72F14D94BCa70Fc6d204C954E21EC8caD";
     var WorldCupToken_abi = [
@@ -610,8 +621,9 @@ for(x=1;x < 32; x++){
 <a HREF="http://faucet.ropsten.be:3001/">Ether Faucet</a>... so you have some to play with 
 
 
+<hr/>
 Helpful hint in the console...
-
+<br/>
 w.buyWorldCupTeamToken(6,{from: web3.eth.accounts[0], value: web3.toWei(0.1)},console.log)
     
 </body>
