@@ -45,7 +45,7 @@ for(x=1;x < 32; x++){
     .css( "background-color", "grey" )
     .css( "border", "5px solid black" )
     .html(cardInfo[0])
-    .append("<div> $"+ cardInfo[1]["c"][0] / 1000 +"</div>")
+    .append("<div> $"+ cardInfo[1]["c"][0] / 100 +"</div>")
     .append("<div> #"+ cardId +"</div>")
     
     if (cardInfo[2] === web3.eth.accounts[0]) {
@@ -55,7 +55,7 @@ for(x=1;x < 32; x++){
         newdiv.append("<button value="+cardId+" name="+carddInfo[1]["c"][0]+">Buy</button>")
         newdiv.find("button").click(function(t){
             clickedCardId = $(t["target"]).val();
-            clickedCardPrice = ($(t["target"].attr("name")) / 1000 ) * 1.1 
+            clickedCardPrice = ($(t["target"].attr("name")) / 100 ) * 1.1 
             WorldCupToken.buyWorldCupTeamToken(clickedCardId,{value:web3.toWei(clickedCardPrice)},console.log)
         })
     }
