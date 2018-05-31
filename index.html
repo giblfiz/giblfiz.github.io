@@ -45,11 +45,17 @@ for(x=1;x < 32; x++){
     .css( "background-color", "grey" )
     .css( "border", "5px solid black" )
     .html(cardInfo[0])
-    .append("<div> $"+ cardInfo[1]["e"] +"</div>")
+    .append("<div> $"+ cardInfo[1]["c"][0] +"</div>")
     .append("<div> #"+ cardId +"</div>")
     
     if (cardInfo[2] === web3.eth.accounts[0]) {
         newdiv.css("background-color", "red")
+    } else {
+        newdiv.append("<button value="+cardId+" name="+carddInfo[1]["c"][0]+">Buy</button>")
+        newdiv.find("button").click(function(t){
+            clickedCardId = $(t["target"]).val();
+//            WorldCupToken.
+                              })
     }
     
   }
