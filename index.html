@@ -46,7 +46,7 @@ for(x=1;x < 32; x++){
     .css( "background-color", "grey" )
     .css( "border", "5px solid black" )
     .html(cardInfo[0])
-    .append("<div> $"+ cardInfo[1]["c"][0] / 10000 +"</div>")
+    .append("<div> $"+ cardInfo[1]["c"][0] / 100000 +"</div>")
     .append("<div> #"+ cardId +"</div>")
     
     if (cardInfo[2] === web3.eth.accounts[0]) {
@@ -56,7 +56,7 @@ for(x=1;x < 32; x++){
         newdiv.append("<button value="+cardId+" name="+cardInfo[1]["c"][0]+">Buy</button>")
         newdiv.find("button").click(function(t){
             clickedCardId = $(t["target"]).val();
-            clickedCardPrice = (($(t["target"]).attr("name")) / 10000 ) * 1.1 ;
+            clickedCardPrice = (($(t["target"]).attr("name")) / 100000 ) * 1.1 ;
             if (clickedCardPrice < .001) {
                 clickedCardPrice = .001
             }
