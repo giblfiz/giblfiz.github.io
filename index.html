@@ -57,8 +57,8 @@ for(x=1;x < 32; x++){
         newdiv.find("button").click(function(t){
             clickedCardId = $(t["target"]).val();
             clickedCardPrice = (($(t["target"]).attr("name")) / 100000 ) * 1.1 ;
-            if (clickedCardPrice < .001) {
-                clickedCardPrice = .001
+            if (clickedCardPrice < .01) {
+                clickedCardPrice = .01
             }
             WorldCupToken.buyWorldCupTeamToken(clickedCardId,{value:web3.toWei(clickedCardPrice)},console.log)
         })
