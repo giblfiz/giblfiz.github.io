@@ -54,7 +54,7 @@ for(x=1;x < 32; x++){
     
     if (cardInfo[2] === web3.eth.accounts[0]) {
         newdiv.css("background-color", "red")
-        .append("<input type='text' id='rename_"+cardId+"'>something</input>")
+        .append("<input type='text' value='Set new Text' id='rename_"+cardId+"'>")
         .append("<button value="+cardId+">Change Text</button>")
 
     } else {
