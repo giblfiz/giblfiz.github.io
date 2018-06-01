@@ -57,6 +57,15 @@ for(x=1;x < 32; x++){
         .append("<input type='text' value='Set new Text' id='rename_"+cardId+"'>")
         .append("<button value="+cardId+">Change Text</button>")
 
+        newdiv.find("button").click(function(t){
+            clickedCardId = $(t["target"]).val();
+            newText = $("#rename_"+clickedCardId).val()
+//should really get web3.estimateGas working, but 100,000 should be safe for now
+            WorldCupToken.setWorldCupTeamDesc(clickedCardId, newText, {gas:100000}, console.log)
+        })
+
+        
+        
     } else {
         console.log("adding a button for "+ cardId );
         newdiv.append("<button value="+cardId+" name="+cardInfo[1]["c"][0]+">Buy</button>")
