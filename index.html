@@ -45,6 +45,8 @@ for(x=1;x < 32; x++){
     var newdiv = $("div").last()
     .css( "background-color", "grey" )
     .css( "border", "5px solid black" )
+    .css( "width", "400 px" )
+    .css( "margin", "10 px" )
     .html(cardInfo[0])
     .append("<div> $"+ cardInfo[1]["c"][0] / 100000 +"</div>")
     .append("<div> #"+ cardId +"</div>")
