@@ -54,7 +54,8 @@ for(x=1;x < 32; x++){
     
     if (cardInfo[2] === web3.eth.accounts[0]) {
         newdiv.css("background-color", "red")
-        newdiv.append("<button value="+cardId+">Change Text</button>")
+        .append("<input type='text' id='rename_"+cardId+"'>something</input>")
+        .append("<button value="+cardId+">Change Text</button>")
 
     } else {
         console.log("adding a button for "+ cardId );
