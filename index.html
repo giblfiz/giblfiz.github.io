@@ -60,7 +60,8 @@ for(x=1;x < 32; x++){
             if (clickedCardPrice < .01) {
                 clickedCardPrice = .01
             }
-            WorldCupToken.buyWorldCupTeamToken(clickedCardId,{value:web3.toWei(clickedCardPrice)},console.log)
+//should really get estimateGas working, but 100,000 should be safe for now
+            WorldCupToken.buyWorldCupTeamToken(clickedCardId,{value:web3.toWei(clickedCardPrice), gas:100000},console.log)
         })
     }
     
